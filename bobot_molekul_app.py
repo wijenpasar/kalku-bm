@@ -474,6 +474,70 @@ if menu == "Beranda":
             </div>
 
             <div style='height:18px'></div>
+            <div style='display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap;'>
+              <div style='flex: 1; min-width: 260px;'>
+                <div style='padding:12px 14px; border-radius:14px; border: 1px solid rgba(255,255,255,0.35); background: rgba(255,255,255,0.12);'>
+                  <b style='font-size:14.5px;'>😂 Kutipan random tentang kimia</b>
+                  <div style='margin-top:6px; opacity:.9; font-size:13.5px; line-height:1.35;'>
+                    “Kimia itu seperti masak: kalau takaran salah, reaksinya bisa bikin ‘meledak’… tapi setidaknya jadi pelajaran!”
+                  </div>
+                </div>
+              </div>
+
+              <div style='flex: 0.9; min-width: 260px; display:flex; justify-content:flex-end;'>
+                <!-- Struktur kimia (SVG inline sederhana) -->
+                <svg viewBox='0 0 520 180' style='width:100%; max-width:520px; height:auto; filter: drop-shadow(0 12px 20px rgba(0,0,0,.10));'>
+                  <defs>
+                    <linearGradient id='bond' x1='0' y1='0' x2='1' y2='1'>
+                      <stop offset='0' stop-color='#3b82f6' stop-opacity='0.95'/>
+                      <stop offset='1' stop-color='#22c55e' stop-opacity='0.9'/>
+                    </linearGradient>
+                  </defs>
+
+                  <!-- bonds -->
+                  <path d='M70 90 L160 90' stroke='url(#bond)' stroke-width='6' stroke-linecap='round'/>
+                  <path d='M160 90 L245 52' stroke='url(#bond)' stroke-width='6' stroke-linecap='round'/>
+                  <path d='M160 90 L245 128' stroke='url(#bond)' stroke-width='6' stroke-linecap='round'/>
+                  <path d='M245 52 L330 52' stroke='url(#bond)' stroke-width='6' stroke-linecap='round'/>
+                  <path d='M245 128 L330 128' stroke='url(#bond)' stroke-width='6' stroke-linecap='round'/>
+                  <path d='M330 52 L415 90' stroke='url(#bond)' stroke-width='6' stroke-linecap='round'/>
+                  <path d='M330 128 L415 90' stroke='url(#bond)' stroke-width='6' stroke-linecap='round'/>
+
+                  <!-- atoms (lingkaran) -->
+                  <g font-family='ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto' font-weight='800'>
+                    <g transform='translate(70,90)'>
+                      <circle r='18' fill='rgba(59,130,246,0.18)' stroke='rgba(59,130,246,0.55)' stroke-width='3'/>
+                      <text text-anchor='middle' y='6' font-size='16' fill='#eaf2ff'>C</text>
+                    </g>
+                    <g transform='translate(160,90)'>
+                      <circle r='18' fill='rgba(34,197,94,0.16)' stroke='rgba(34,197,94,0.55)' stroke-width='3'/>
+                      <text text-anchor='middle' y='6' font-size='16' fill='#eafff4'>C</text>
+                    </g>
+                    <g transform='translate(245,52)'>
+                      <circle r='18' fill='rgba(59,130,246,0.18)' stroke='rgba(59,130,246,0.55)' stroke-width='3'/>
+                      <text text-anchor='middle' y='6' font-size='16' fill='#eaf2ff'>O</text>
+                    </g>
+                    <g transform='translate(245,128)'>
+                      <circle r='18' fill='rgba(34,197,94,0.16)' stroke='rgba(34,197,94,0.55)' stroke-width='3'/>
+                      <text text-anchor='middle' y='6' font-size='16' fill='#eafff4'>H</text>
+                    </g>
+                    <g transform='translate(330,52)'>
+                      <circle r='18' fill='rgba(167,139,250,0.16)' stroke='rgba(167,139,250,0.55)' stroke-width='3'/>
+                      <text text-anchor='middle' y='6' font-size='16' fill='#f1eaff'>N</text>
+                    </g>
+                    <g transform='translate(330,128)'>
+                      <circle r='18' fill='rgba(59,130,246,0.18)' stroke='rgba(59,130,246,0.55)' stroke-width='3'/>
+                      <text text-anchor='middle' y='6' font-size='16' fill='#eaf2ff'>S</text>
+                    </g>
+                    <g transform='translate(415,90)'>
+                      <circle r='18' fill='rgba(34,197,94,0.16)' stroke='rgba(34,197,94,0.55)' stroke-width='3'/>
+                      <text text-anchor='middle' y='6' font-size='16' fill='#eafff4'>Cl</text>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+
             <div style='display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:12px;'>
               <div class='kartu'>
                 <h4>⚛️ Parsing Rumus</h4>
