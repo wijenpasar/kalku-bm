@@ -443,8 +443,7 @@ elif menu == "Kalkulator":
 
     st.markdown("---")
     st.markdown(
-        "**Contoh input**: `H2O`, `CO2`, `CH3COOH`, `NaCl`, `Ca(OH)2`\n"
-        "Jika rumus mengandung simbol `·` (dot) seperti `CuSO4·5H2O`, perlu fitur parsing tambahan."
+        "**Contoh input**: `H2O`, `CO2`, `CH3COOH`, `NaCl`, `Ca(OH)2`, `CuSO4.5H2O\n" 
     )
 
 elif menu == "Tabel Periodik (full)":
