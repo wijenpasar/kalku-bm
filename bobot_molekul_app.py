@@ -380,6 +380,18 @@ with _tab_calc:
 
             st.subheader(f"Hasil: Mr({formula}) = {total_mr:.{decimals}f} g/mol")
 
+            # Berat ekuivalen (berdasarkan massa molar dan jumlah elektronnya)
+            # Keterangan: Be = Mr / n, dengan n = jumlah elektron yang terlibat untuk reaksi redoks atau jumlah muatan kation/anions.
+            n_eq = st.number_input(
+                "Berat ekuivalen (Be): masukkan nilai n (jumlah elektron/valensi ekuivalen)",
+                min_value=1,
+                value=1,
+                step=1,
+            )
+            be = total_mr / float(n_eq)
+            st.info(f"Berat ekuivalen (Be) = Mr / n = {total_mr:.{decimals}f} / {int(n_eq)} = {be:.{decimals}f} g/ekuiv")
+
+
             details = []
             for el in sorted(counts.keys(), key=lambda x: (x != "", x)):
                 cnt = counts[el]
