@@ -478,8 +478,8 @@ elif menu == "Kalkulator":
         "Jika rumus mengandung simbol `·` (dot) seperti `CuSO4·5H2O`, perlu fitur parsing tambahan."
     )
 
-elif menu == "Tabel Periodik (full)":
-    st.subheader("Tabel Periodik (full) dari dataset massa atom")
+elif menu == "Tabel Periodik":
+    st.subheader("Tabel Periodik dari dataset massa atom")
 
 
     available = sorted(set(ATOMIC_MASS.keys()) & set(PERIODIC_META.keys()))
