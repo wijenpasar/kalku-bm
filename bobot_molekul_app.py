@@ -350,7 +350,7 @@ def calculate_molar_mass(counts: dict[str, int]) -> float:
 # -------------------------
 st.set_page_config(page_title="Kalkulator Bobot Molekul", layout="wide")
 
-st.title("🧪 Kalkulator Bobot Molekul dan Bobot Ekuivalen (Mr) dari Rumus Kimia")
+st.title("🧪 Kalkulator Bobot Molekul (Mr) dari Rumus Kimia")
 st.caption("Masukkan rumus kimia seperti: H2O, CO2, NaCl, Ca(OH)2. Mendukung tanda kurung ().")
 
 # Sidebar menu (Beranda / Kalkulator / Tabel Periodik)
