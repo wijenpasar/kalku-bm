@@ -384,10 +384,21 @@ if menu == "Beranda":
                background: rgba(255,255,255,0.65); box-shadow: 0 8px 24px rgba(0,0,0,0.06);} 
         .kartu h4{margin:0 0 6px 0; font-size:16px;}
         .kartu p{margin:0; opacity:.85; font-size:13.5px; line-height:1.35;}
-        .svg-orn{width:220px; height:auto; opacity:.95; filter: drop-shadow(0 10px 18px rgba(0,0,0,.10));}
+        .svg-orn{width:220px; height:auto; opacity:.95; filter: drop-shadow(0 10px 18px rgba(0,0,0,.10)); position:relative; z-index:2;}
         .cta-btn{display:inline-flex; align-items:center; justify-content:center; padding:12px 18px; border-radius:14px;
                  background: linear-gradient(135deg,#22c55e,#3b82f6); color:white; font-weight:700; text-decoration:none;}
         .cta-btn:hover{filter:brightness(1.03)}
+
+        /* Responsive + anti-overlap */
+        @media (max-width: 860px){
+          .svg-orn{width: 160px;}
+          .periodic-grid{grid-template-columns: repeat(9, 1fr);}
+        }
+        @media (max-width: 720px){
+          .beranda-hero-flex{flex-direction: column !important; align-items: stretch !important;}
+          .beranda-hero-right{justify-content: flex-start !important;}
+          .svg-orn{width: 100% !important; max-width: 320px; margin-top: 10px;}
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -474,8 +485,8 @@ if menu == "Beranda":
             </div>
 
             <div style='height:18px'></div>
-            <div style='display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap;'>
-              <div style='flex: 1; min-width: 260px;'>
+            <div style='display:flex; gap:14px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;'>
+              <div style='flex: 1; min-width: 260px; position:relative; z-index:3;'>
                 <div style='padding:12px 14px; border-radius:14px; border: 1px solid rgba(255,255,255,0.35); background: rgba(255,255,255,0.12);'>
                   <b style='font-size:14.5px;'>😂 Kutipan random tentang kimia</b>
                   <div style='margin-top:6px; opacity:.9; font-size:13.5px; line-height:1.35;'>
