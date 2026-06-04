@@ -361,21 +361,177 @@ menu = st.sidebar.radio(
 )
 
 if menu == "Beranda":
-    st.subheader("Selamat datang")
-    st.write(
-        "Aplikasi ini membantu menghitung **Mr (bobot molekul)** dari rumus kimia, serta menyediakan **tabel periodik** dari dataset massa atom yang ada."
-    )
-    st.markdown("---")
-    st.write("**Fitur utama:**")
+    # --- Custom CSS (hanya untuk tampilan Beranda) ---
     st.markdown(
         """
-- Input rumus seperti: `H2O`, `CO2`, `NaCl`, `Ca(OH)2`
-- Mendukung tanda kurung `()` dan notasi dot hydrates (contoh: `CuSO4·5H2O`)
-- Menampilkan komposisi unsur (jumlah atom dan kontribusi Mr)
-- Menghitung **berat ekuivalen (Be)** berdasarkan `Be = Mr / n` (input n)
-        """
+        <style>
+        .hero-wrap{
+            position:relative;
+            padding: 22px 20px;
+            border-radius: 18px;
+            overflow:hidden;
+            background: linear-gradient(120deg, rgba(59,130,246,0.18), rgba(217,70,239,0.14), rgba(34,197,94,0.10));
+            border: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+        .hero-title{font-size: 34px; font-weight: 800; letter-spacing: .2px;}
+        .hero-sub{opacity: .88; font-size: 14px;}
+        .badge{
+            display:inline-flex; align-items:center; gap:8px;
+            padding: 8px 12px; border-radius: 999px;
+            background: rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.06);
+            font-weight: 650;
+        }
+        .kartu{
+            padding: 14px 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.06);
+            background: rgba(255,255,255,0.65);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.04);
+            min-height: 120px;
+        }
+        .kartu h4{margin:0 0 6px 0; font-size: 16px;}
+        .kartu p{margin:0; opacity:.85; font-size: 13px; line-height:1.35;}
+        .cta-row{margin-top: 14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+        .btn-big{font-weight: 800;}
+        </style>
+        """,
+        unsafe_allow_html=True,
     )
+
+    # --- “Gambar unsur kimia” (SVG inline, tidak perlu file eksternal) ---
+    unsur_svg = r"""
+    <svg viewBox="0 0 620 220" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#60a5fa" stop-opacity="0.55"/>
+          <stop offset="0.5" stop-color="#d946ef" stop-opacity="0.40"/>
+          <stop offset="1" stop-color="#22c55e" stop-opacity="0.35"/>
+        </linearGradient>
+        <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.15"/>
+        </filter>
+      </defs>
+
+      <rect x="0" y="0" width="620" height="220" rx="18" fill="url(#g1)" opacity="0.95"/>
+
+      <!-- Background sparkles -->
+      <g opacity="0.35" fill="#fff">
+        <circle cx="50" cy="45" r="3"/><circle cx="110" cy="30" r="2"/>
+        <circle cx="560" cy="40" r="3"/><circle cx="500" cy="70" r="2"/>
+        <circle cx="590" cy="140" r="3"/><circle cx="40" cy="170" r="2"/>
+      </g>
+
+      <!-- Orbital atom (H-like) -->
+      <g transform="translate(80,35)" filter="url(#shadow)">
+        <circle cx="110" cy="80" r="46" fill="rgba(255,255,255,0.35)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+        <circle cx="110" cy="80" r="17" fill="#60a5fa" fill-opacity="0.9"/>
+        <circle cx="110" cy="80" r="6" fill="#ffffff"/>
+        <ellipse cx="110" cy="80" rx="82" ry="26" fill="none" stroke="#d946ef" stroke-width="3" opacity="0.35"/>
+        <ellipse cx="110" cy="80" rx="64" ry="20" fill="none" stroke="#22c55e" stroke-width="3" opacity="0.30"/>
+        <circle cx="170" cy="70" r="10" fill="#d946ef" fill-opacity="0.75"/>
+        <circle cx="60" cy="95" r="9" fill="#22c55e" fill-opacity="0.65"/>
+        <text x="110" y="140" text-anchor="middle" font-size="22" font-weight="800" fill="rgba(0,0,0,0.75)">H</text>
+        <text x="110" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="rgba(0,0,0,0.55)">unsur simbolik</text>
+      </g>
+
+      <!-- Molecule connections -->
+      <g transform="translate(290,20)" filter="url(#shadow)">
+        <circle cx="60" cy="90" r="22" fill="rgba(96,165,250,0.55)" stroke="rgba(255,255,255,0.65)" stroke-width="2"/>
+        <circle cx="170" cy="55" r="18" fill="rgba(217,70,239,0.50)" stroke="rgba(255,255,255,0.65)" stroke-width="2"/>
+        <circle cx="230" cy="130" r="20" fill="rgba(34,197,94,0.45)" stroke="rgba(255,255,255,0.65)" stroke-width="2"/>
+        <circle cx="110" cy="165" r="16" fill="rgba(96,165,250,0.50)" stroke="rgba(255,255,255,0.65)" stroke-width="2"/>
+
+        <path d="M60 90 L170 55" stroke="#d946ef" stroke-width="4" stroke-linecap="round" opacity="0.45"/>
+        <path d="M170 55 L230 130" stroke="#22c55e" stroke-width="4" stroke-linecap="round" opacity="0.42"/>
+        <path d="M60 90 L110 165" stroke="#60a5fa" stroke-width="4" stroke-linecap="round" opacity="0.42"/>
+        <path d="M110 165 L230 130" stroke="#d946ef" stroke-width="4" stroke-linecap="round" opacity="0.35"/>
+
+        <text x="60" y="96" text-anchor="middle" font-size="16" font-weight="900" fill="rgba(0,0,0,0.7)">Na</text>
+        <text x="170" y="62" text-anchor="middle" font-size="14" font-weight="900" fill="rgba(0,0,0,0.7)">Cl</text>
+        <text x="230" y="136" text-anchor="middle" font-size="14" font-weight="900" fill="rgba(0,0,0,0.7)">O</text>
+        <text x="110" y="172" text-anchor="middle" font-size="14" font-weight="900" fill="rgba(0,0,0,0.7)">C</text>
+      </g>
+
+      <!-- Caption -->
+      <text x="315" y="205" text-anchor="middle" font-size="14" font-weight="800" fill="rgba(0,0,0,0.60)">
+        Simbol unsur + koneksi molekul — vibes kimia!
+      </text>
+    </svg>
+    """
+
+    # --- Layout Beranda ---
+    st.markdown(
+        f"""<div class='hero-wrap'>
+            <div class='badge'>⚛️ Visual Kimia • Mr Calculator</div>
+            <div style='height:10px'></div>
+            <div class='hero-title'>Jelajahi rumus, rasakan kimia ✨</div>
+            <div class='hero-sub'>Hitung <b>Mr (bobot molekul)</b> dan <b>berat ekuivalen (Be)</b> hanya dari rumus — plus ilustrasi unsur yang bikin makin seru.</div>
+            <div class='cta-row'>
+              <a href='#' onclick='window.parent.postMessage({type: "streamlit:setComponentValue", value: 1}, "*")' style='text-decoration:none'>
+                <span class='btn-big'>
+              </a>
+            </div>
+          </div>""",
+        unsafe_allow_html=True,
+    )
+
+    # Render SVG
+    st.markdown(unsur_svg, unsafe_allow_html=True)
+
     st.markdown("---")
+
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        st.markdown(
+            """<div class='kartu'>
+                <h4>🧾 Input rumus</h4>
+                <p>Ketik cepat seperti <b>H2O</b>, <b>CO2</b>, <b>NaCl</b>, atau <b>Ca(OH)2</b>.</p>
+            </div>""",
+            unsafe_allow_html=True,
+        )
+    with c2:
+        st.markdown(
+            """<div class='kartu'>
+                <h4>🧠 Parsing pintar</h4>
+                <p>Mendukung tanda kurung <b>()</b> dan notasi <b>dot hydrate</b> (contoh <b>CuSO4·5H2O</b>).</p>
+            </div>""",
+            unsafe_allow_html=True,
+        )
+    with c3:
+        st.markdown(
+            """<div class='kartu'>
+                <h4>⚖️ Mr + detail unsur</h4>
+                <p>Lihat kontribusi tiap unsur: jumlah atom dan kontribusi massa.</p>
+            </div>""",
+            unsafe_allow_html=True,
+        )
+    with c4:
+        st.markdown(
+            """<div class='kartu'>
+                <h4>📌 Be = Mr / n</h4>
+                <p>Hitung berat ekuivalen dengan <b>Be</b> berdasarkan nilai <b>n</b>.</p>
+            </div>""",
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("---")
+
+    # CTA sederhana: gunakan tombol untuk menyetel session_state dan refresh pilihan menu.
+    # Karena radio menu tidak bisa dipaksa lewat HTML, kita gunakan session_state untuk menyetel ulang dan memunculkan hint.
+    if st.button("🚀 Mulai hitung sekarang (ke Kalkulator)", type="primary"):
+        st.session_state["_jump_to_kalkulator"] = True
+        st.rerun()
+
+    st.info("Gunakan sidebar untuk pindah menu. Tombol di atas hanya memberi hint cepat untuk memulai di tab Kalkulator.")
+
+    # Jika ada flag jump, tampilkan tombol otomatis untuk user.
+    if st.session_state.get("_jump_to_kalkulator"):
+        st.session_state["_jump_to_kalkulator"] = False
+        st.toast("Langkah berikutnya: pilih menu 'Kalkulator' di sidebar.")
+
     st.caption("Tip: gunakan menu di sidebar untuk berpindah halaman.")
 
 elif menu == "Kalkulator":
@@ -579,4 +735,3 @@ elif menu == "Tabel Periodik":
         if st.button("Masukkan simbol ke kalkulator (hint)"):
             st.session_state["prefill_symbol"] = selected
             st.toast(f"{selected} disimpan untuk hint di tab Kalkulator.")
-
