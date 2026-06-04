@@ -353,15 +353,38 @@ st.set_page_config(page_title="Kalkulator Bobot Molekul", layout="wide")
 st.title("🧪 Kalkulator Bobot Molekul (Mr) dari Rumus Kimia")
 st.caption("Masukkan rumus kimia seperti: H2O, CO2, NaCl, Ca(OH)2. Mendukung tanda kurung ().")
 
-# Tabs
-_tab_calc, _tab_periodic = st.tabs(["Kalkulator", "Tabel Periodik (full)"])
+# Sidebar menu (Beranda / Kalkulator / Tabel Periodik)
+menu = st.sidebar.radio(
+    "Menu",
+    options=["Beranda", "Kalkulator", "Tabel Periodik (full)"],
+    index=0,
+)
 
-with _tab_calc:
+if menu == "Beranda":
+    st.subheader("Selamat datang")
+    st.write(
+        "Aplikasi ini membantu menghitung **Mr (bobot molekul)** dari rumus kimia, serta menyediakan **tabel periodik** dari dataset massa atom yang ada."
+    )
+    st.markdown("---")
+    st.write("**Fitur utama:**")
+    st.markdown(
+        """
+- Input rumus seperti: `H2O`, `CO2`, `NaCl`, `Ca(OH)2`
+- Mendukung tanda kurung `()` dan notasi dot hydrates (contoh: `CuSO4·5H2O`)
+- Menampilkan komposisi unsur (jumlah atom dan kontribusi Mr)
+- Menghitung **berat ekuivalen (Be)** berdasarkan `Be = Mr / n` (input n)
+        """
+    )
+    st.markdown("---")
+    st.caption("Tip: gunakan menu di sidebar untuk berpindah halaman.")
+
+elif menu == "Kalkulator":
     formula = st.text_input(
         "Rumus kimia",
         value="Ca(OH)2",
         help="Gunakan format huruf besar-kecil (mis. Na, Cl) dan angka untuk jumlah atom.",
     )
+
 
     col1, col2 = st.columns(2)
     with col1:
