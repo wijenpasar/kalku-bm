@@ -350,7 +350,7 @@ def calculate_molar_mass(counts: dict[str, int]) -> float:
 # -------------------------
 st.set_page_config(page_title="Kalkulator Bobot Molekul", layout="wide")
 
-st.title("🧪 Kalkulator Bobot Molekul (Mr) dari Rumus Kimia")
+st.title("🧪 Kalkulator Bobot Molekul dan Bobot Ekuivalen (Mr) dari Rumus Kimia")
 st.caption("Masukkan rumus kimia seperti: H2O, CO2, NaCl, Ca(OH)2. Mendukung tanda kurung ().")
 
 # Sidebar menu (Beranda / Kalkulator / Tabel Periodik)
@@ -369,7 +369,8 @@ if menu == "Beranda":
     st.write("**Fitur utama:**")
     st.markdown(
         """
-- Input rumus seperti: `H2O`, `CO2`, `NaCl`, `Ca(OH)2`, `CuSO4·5H2O`
+- Input rumus seperti: `H2O`, `CO2`, `NaCl`, `Ca(OH)2`
+- Mendukung tanda kurung `()` dan notasi dot hydrates (contoh: `CuSO4·5H2O`)
 - Menampilkan komposisi unsur (jumlah atom dan kontribusi Mr)
 - Menghitung **berat ekuivalen (Be)** berdasarkan `Be = Mr / n` (input n)
         """
@@ -473,8 +474,7 @@ elif menu == "Kalkulator":
 
     st.markdown("---")
     st.markdown(
-        "**Contoh input**: `H2O`, `CO2`, `CH3COOH`, `NaCl`, `Ca(OH)2`\n"
-        "Jika rumus mengandung simbol `·` (dot) seperti `CuSO4·5H2O`, perlu fitur parsing tambahan."
+        "**Contoh input**: `H2O`, `CO2`, `CH3COOH`, `NaCl`, `Ca(OH)2`, `CuSO4·5H2O`\n"`
     )
 
 elif menu == "Tabel Periodik":
