@@ -350,6 +350,52 @@ def calculate_molar_mass(counts: dict[str, int]) -> float:
 # -------------------------
 st.set_page_config(page_title="Kalkulator Bobot Molekul", layout="wide")
 
+# "Warna lucu" (tema) via CSS: gradient pelangi + aksen warna cerah.
+st.markdown(
+    """
+    <style>
+    :root{
+        --lucu-1:#7C3AED; /* ungu */
+        --lucu-2:#06B6D4; /* cyan */
+        --lucu-3:#22C55E; /* hijau */
+        --lucu-4:#F59E0B; /* oranye */
+        --lucu-5:#EF4444; /* merah */
+        --lucu-bg: rgba(124,58,237,0.06);
+    }
+    .stApp{ background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(6,182,212,0.08), rgba(34,197,94,0.06)) !important; }
+    h1{ color: #111827 !important; }
+    /* judul */
+    div[data-testid='stHeader']{ background: transparent !important; }
+
+    /* tombol utama */
+    div.stButton > button {
+        background: linear-gradient(90deg, var(--lucu-1), var(--lucu-2), var(--lucu-3)) !important;
+        color: white !important;
+        border: 0 !important;
+        font-weight: 700 !important;
+        border-radius: 12px !important;
+    }
+    div.stButton > button:hover{ filter: brightness(1.05) !important; }
+
+    /* sidebar */
+    section[data-testid='stSidebar']{
+        background: linear-gradient(180deg, rgba(124,58,237,0.12), rgba(245,158,11,0.08)) !important;
+        border-right: 1px solid rgba(0,0,0,0.06) !important;
+    }
+
+    /* input */
+    input, textarea, .stTextInput > div > input{ border-radius: 12px !important; }
+
+    /* card/containers */
+    section.main > div { background: var(--lucu-bg) !important; border-radius: 16px !important; }
+
+    /* tabel */
+    table{ border-radius: 14px !important; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 st.title("🧪 Kalkulator Bobot Molekul dan Bobot Ekuivalen (Mr) dari Rumus Kimia")
 st.caption("Masukkan rumus kimia seperti: H2O, CO2, NaCl, Ca(OH)2. Mendukung tanda kurung ().")
 
@@ -361,7 +407,50 @@ menu = st.sidebar.radio(
 )
 
 if menu == "Beranda":
-    st.subheader("Selamat datang")
+    # CSS khusus Beranda agar lebih lucu (hanya berlaku untuk konten Beranda)
+    st.markdown(
+        """
+        <style>
+        /* scope: hanya untuk konten yang dibungkus #beranda-lucu */
+        #beranda-lucu{
+            position: relative;
+            padding: 14px 0;
+        }
+        #beranda-lucu .beranda-card{
+            background: linear-gradient(135deg, rgba(124,58,237,0.14), rgba(6,182,212,0.12), rgba(34,197,94,0.10)) !important;
+            border: 1px solid rgba(0,0,0,0.06) !important;
+            border-radius: 18px !important;
+            padding: 14px 16px !important;
+            box-shadow: 0 10px 30px rgba(124,58,237,0.08) !important;
+        }
+        #beranda-lucu .beranda-title{
+            font-weight: 900 !important;
+            letter-spacing: 0.2px !important;
+            color: #111827 !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #beranda-lucu .beranda-title .emoji{
+            font-size: 28px;
+        }
+        #beranda-lucu ul{
+            margin-bottom: 0 !important;
+        }
+        #beranda-lucu li{
+            background: rgba(255,255,255,0.55) !important;
+            border: 1px dashed rgba(0,0,0,0.10) !important;
+            border-radius: 12px !important;
+            padding: 8px 10px !important;
+            margin: 8px 0 !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("<div id='beranda-lucu'><div class='beranda-card'>", unsafe_allow_html=True)
+    st.markdown("<div class='beranda-title'><span class='emoji'>🦄</span><span>Selamat datang</span></div>", unsafe_allow_html=True)
     st.write(
         "Aplikasi ini membantu menghitung **Mr (bobot molekul)** dari rumus kimia, serta menyediakan **tabel periodik** dari dataset massa atom yang ada."
     )
