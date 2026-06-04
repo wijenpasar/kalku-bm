@@ -369,8 +369,7 @@ if menu == "Beranda":
     st.write("**Fitur utama:**")
     st.markdown(
         """
-- Input rumus seperti: `H2O`, `CO2`, `NaCl`, `Ca(OH)2`
-- Mendukung tanda kurung `()` dan notasi dot hydrates (contoh: `CuSO4·5H2O`)
+- Input rumus seperti: `H2O`, `CO2`, `NaCl`, `Ca(OH)2`, `CuSO4·5H2O`
 - Menampilkan komposisi unsur (jumlah atom dan kontribusi Mr)
 - Menghitung **berat ekuivalen (Be)** berdasarkan `Be = Mr / n` (input n)
         """
