@@ -356,7 +356,7 @@ st.caption("Masukkan rumus kimia seperti: H2O, CO2, NaCl, Ca(OH)2. Mendukung tan
 # Sidebar menu (Beranda / Kalkulator / Tabel Periodik)
 menu = st.sidebar.radio(
     "Menu",
-    options=["Beranda", "Kalkulator", "Tabel Periodik"],
+    options=["Beranda", "Kalkulator", "Tabel Periodik (full)"],
     index=0,
 )
 
@@ -405,17 +405,42 @@ elif menu == "Kalkulator":
 
             # Berat ekuivalen (berdasarkan massa molar dan jumlah elektronnya)
             # Keterangan: Be = Mr / n, dengan n = jumlah elektron yang terlibat untuk reaksi redoks atau jumlah muatan kation/anions.
-            n_eq = st.number_input(
-                "Berat ekuivalen (Be): masukkan nilai n (jumlah elektron/valensi ekuivalen)",
-                min_value=1,
-                value=1,
-                step=1,
+            # Input n (valensi ekuivalen / jumlah elektron) dijaga agar selalu bilangan bulat > 0.
+            n_eq_raw = st.text_input(
+                "Berat ekuivalen (Be): masukkan nilai n (valensi ekuivalen / jumlah elektron)",
+                value="1",
+                help="Contoh: 1, 2, 3. Bilangan bulat > 0. Jika pakai desimal atau koma, akan ditolak.",
             )
-            be = total_mr / float(n_eq)
-            st.info(f"Berat ekuivalen (Be) = Mr / n = {total_mr:.{decimals}f} / {int(n_eq)} = {be:.{decimals}f} g/ekuiv")
 
+            def _parse_int_positive(value: str):
+                v = str(value).strip()
+                if not v:
+                    return None
+                # dukung format Indonesia: 2,0 -> tolak (karena diminta bulat)
+                v = v.replace(",", ".")
+                try:
+                    # validasi ketat: harus int murni (tidak boleh 2.0)
+                    if "." in v:
+                        return None
+                    n = int(v)
+                except Exception:
+                    return None
+                if n <= 0:
+                    return None
+                return n
+
+            n_eq = _parse_int_positive(n_eq_raw)
+            if n_eq is None:
+                st.warning("Input n tidak valid. Masukkan bilangan bulat > 0 (mis. 1 atau 2).")
+                st.stop()
+
+            be = total_mr / float(n_eq)
+            st.info(
+                f"Berat ekuivalen (Be) = Mr / n = {total_mr:.{decimals}f} / {n_eq} = {be:.{decimals}f} g/ekuiv"
+            )
 
             details = []
+
             for el in sorted(counts.keys(), key=lambda x: (x != "", x)):
                 cnt = counts[el]
                 mr_el = ATOMIC_MASS[el] * cnt
@@ -443,11 +468,12 @@ elif menu == "Kalkulator":
 
     st.markdown("---")
     st.markdown(
-        "**Contoh input**: `H2O`, `CO2`, `CH3COOH`, `NaCl`, `Ca(OH)2`, `CuSO4.5H2O`\n" 
+        "**Contoh input**: `H2O`, `CO2`, `CH3COOH`, `NaCl`, `Ca(OH)2`\n"
+        "Jika rumus mengandung simbol `·` (dot) seperti `CuSO4·5H2O`, perlu fitur parsing tambahan."
     )
 
-elif menu == "Tabel Periodik":
-    st.subheader("Tabel Periodik dari dataset massa atom")
+elif menu == "Tabel Periodik (full)":
+    st.subheader("Tabel Periodik (full) dari dataset massa atom")
 
 
     available = sorted(set(ATOMIC_MASS.keys()) & set(PERIODIC_META.keys()))
