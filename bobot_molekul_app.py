@@ -446,8 +446,8 @@ elif menu == "Kalkulator":
         "**Contoh input**: `H2O`, `CO2`, `CH3COOH`, `NaCl`, `Ca(OH)2`, `CuSO4.5H2O`\n" 
     )
 
-elif menu == "Tabel Periodik (full)":
-    st.subheader("Tabel Periodik (full) dari dataset massa atom")
+elif menu == "Tabel Periodik":
+    st.subheader("Tabel Periodik dari dataset massa atom")
 
 
     available = sorted(set(ATOMIC_MASS.keys()) & set(PERIODIC_META.keys()))
