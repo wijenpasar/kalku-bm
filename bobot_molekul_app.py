@@ -356,7 +356,7 @@ st.caption("Masukkan rumus kimia seperti: H2O, CO2, NaCl, Ca(OH)2. Mendukung tan
 # Sidebar menu (Beranda / Kalkulator / Tabel Periodik)
 menu = st.sidebar.radio(
     "Menu",
-    options=["Beranda", "Kalkulator", "Tabel Periodik (full)"],
+    options=["Beranda", "Kalkulator", "Tabel Periodik"],
     index=0,
 )
 
